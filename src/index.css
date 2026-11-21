@@ -1,0 +1,190 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    font-family: "Baloo Da 2", system-ui, sans-serif;
+  }
+
+  body {
+    background-color: #020617;
+    color: #f8fafc;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
+}
+
+.font-num {
+  font-family: "Baloo Da 2", "JetBrains Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.pb-safe {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+@keyframes waterfallCascade {
+  0% {
+    transform: translate3d(0, -50%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0%, 0);
+  }
+}
+
+@keyframes waterfallRippleWave {
+  0% {
+    transform: scale3d(0.65, 0.72, 1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale3d(1.65, 1.32, 1);
+    opacity: 0;
+  }
+}
+
+.waterfall-sheet {
+  height: 200%;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(45, 212, 191, 0) 0%,
+    rgba(45, 212, 191, 0.08) 12%,
+    rgba(16, 185, 129, 0.14) 25%,
+    rgba(94, 234, 212, 0.06) 38%,
+    rgba(45, 212, 191, 0) 50%
+  );
+  animation: waterfallCascade 12s linear infinite;
+  will-change: transform;
+}
+
+.waterfall-sheet-slow {
+  height: 200%;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(20, 184, 166, 0) 0%,
+    rgba(20, 184, 166, 0.11) 16%,
+    rgba(52, 211, 153, 0.07) 33%,
+    rgba(20, 184, 166, 0) 50%
+  );
+  animation: waterfallCascade 16s linear infinite;
+  animation-delay: -5s;
+  will-change: transform;
+}
+
+.waterfall-thread {
+  height: 200%;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(153, 246, 228, 0) 0%,
+    rgba(153, 246, 228, 0.22) 8%,
+    rgba(45, 212, 191, 0.12) 18%,
+    rgba(153, 246, 228, 0) 33.333%
+  );
+  animation: waterfallCascade 7.5s linear infinite;
+  will-change: transform;
+}
+
+.waterfall-thread-alt {
+  height: 200%;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(167, 243, 208, 0) 0%,
+    rgba(167, 243, 208, 0.18) 10%,
+    rgba(20, 184, 166, 0.09) 21%,
+    rgba(167, 243, 208, 0) 33.333%
+  );
+  animation: waterfallCascade 9.5s linear infinite;
+  animation-delay: -3.4s;
+  will-change: transform;
+}
+
+.waterfall-ripple-ring {
+  animation: waterfallRippleWave 5.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  will-change: transform, opacity;
+}
+
+.waterfall-ripple-ring-delayed {
+  animation: waterfallRippleWave 6.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: 2.2s;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only-root {
+    position: static !important;
+    inset: auto !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
